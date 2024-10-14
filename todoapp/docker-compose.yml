@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: django
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: django_container
+    volumes:
+      - .:/app
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    networks:
+      - django_network
+
+volumes:
+  data:
+  static_volume:
+  media_volume:
+
+networks:
+  django_network:
+    driver: bridge
